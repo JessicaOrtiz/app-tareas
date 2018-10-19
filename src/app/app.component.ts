@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   tareas: Tarea[]; //Arrelo de tareas
   ultimoId: number;
+  tareasCompletadas: number;
 
   constructor(){
     this.tareas = [{id: 1, titulo: 'terminar el API', completada: false},{id: 2, titulo: 'Corregir historias de usuario', completada: true}, {id: 3, titulo: 'Comprar boletos para el cine', completada: false}];
@@ -18,6 +19,18 @@ export class AppComponent {
     const tareaNueva = new Tarea({titulo: tituloTarea});
     tareaNueva.id = ++this.ultimoId;
     this.tareas.push(tareaNueva);
+  }
+
+  eliminarTarea(idTarea: number){
+    this.tareas  = this.tareas.filter(function(tarea){
+      return tarea.id !== idTarea;
+    });
+  }
+
+  actualizarTareasCompletadas(){
+    this.tareasCompletadas = this.tareas.filter(function(tarea){
+      return tarea.completada === true;
+    }).length;
   }
 }
 

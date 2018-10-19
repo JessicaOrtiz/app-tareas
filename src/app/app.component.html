@@ -1,10 +1,16 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="container">
+<div class="container w-75 mx-auto shadow-lg p-3 rounded">
   <h1 class="display-1">Lista de tareas</h1>
   <input #textoTarea type="text" placeholder="Que vamos a hacer hoy?" class="form-control" (keyup.enter)="agreagarTarea(textoTarea.value); textoTarea.value = ''">
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let tarea of tareas">
-      {{ tarea.titulo}}
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" [checked]="tarea.completada" (click)="actualizarTareasCompletadas()">
+        <label class="form-check-label">{{ tarea.titulo}}</label>
+        <button class="close" type="button" (click)="eliminarTarea(tarea.id)">&times;</button>
+      </div>
     </li>
   </ul>
+  <p *ngIf="tareas.length > 0"><span class="badge badge-danger">{{tareas.length}} Tareas pendientes</span></p>
+  <p *ngIf="tareas.length > 0"><span class="badge badge-success">{{tareasCompletadas}} Tareas pendientes</span></p>
 </div>
